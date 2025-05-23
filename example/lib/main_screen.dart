@@ -103,7 +103,6 @@ class _MainScreenState extends State<MainScreen> {
                       ),
                       // embeddedImage: AssetImage('assets/images/Bioscope Logo black - Bioscope.png'),
                       embeddedImage: AssetImage('assets/images/logo.jpg'),
-<<<<<<< HEAD
                       embeddedImageStyle: QrEmbeddedImageStyle(
                         size: Size.square(40),
                         color: Colors.white,
@@ -113,9 +112,6 @@ class _MainScreenState extends State<MainScreen> {
                         shapeColor: Color(0xff128760),
                         borderRadius: 10,
                       ),
-=======
-                      embeddedImageStyle: QrEmbeddedImageStyle(safeArea: true, safeAreaMultiplier: 1.1, borderRadius: 10, maxWidth:90,size: Size(90, 0)),
->>>>>>> e022578 (Enhance QR code rendering by adding maxWidth support for embedded images and update version to 4.1.3)
                     ),
                   ),
                 ),
