@@ -25,8 +25,7 @@ class QrImageView extends StatefulWidget {
     this.size,
     this.padding = const EdgeInsets.all(10.0),
     this.backgroundColor = Colors.transparent,
-    @Deprecated('use colors in eyeStyle and dataModuleStyle instead')
-    this.foregroundColor = Colors.black,
+    @Deprecated('use colors in eyeStyle and dataModuleStyle instead') this.foregroundColor = Colors.black,
     this.version = QrVersions.auto,
     this.errorCorrectionLevel = QrErrorCorrectLevel.low,
     this.errorStateBuilder,
@@ -58,8 +57,7 @@ class QrImageView extends StatefulWidget {
     this.size,
     this.padding = const EdgeInsets.all(10.0),
     this.backgroundColor = Colors.transparent,
-    @Deprecated('use colors in eyeStyle and dataModuleStyle instead')
-    this.foregroundColor = Colors.black,
+    @Deprecated('use colors in eyeStyle and dataModuleStyle instead') this.foregroundColor = Colors.black,
     this.version = QrVersions.auto,
     this.errorCorrectionLevel = QrErrorCorrectLevel.low,
     this.errorStateBuilder,
@@ -177,8 +175,7 @@ class _QrImageViewState extends State<QrImageView> {
       _qr = _validationResult.isValid ? _validationResult.qrCode : null;
     } else if (widget._qrCode != null) {
       _qr = widget._qrCode;
-      _validationResult =
-          QrValidationResult(status: QrValidationStatus.valid, qrCode: _qr);
+      _validationResult = QrValidationResult(status: QrValidationStatus.valid, qrCode: _qr);
     }
     return LayoutBuilder(
       builder: (context, constraints) {
@@ -196,9 +193,7 @@ class _QrImageViewState extends State<QrImageView> {
             builder: (ctx, snapshot) {
               if (snapshot.error != null) {
                 debugPrint('snapshot error: ${snapshot.error}');
-                return widget.embeddedImageEmitsError
-                    ? _errorWidget(context, constraints, snapshot.error)
-                    : _qrWidget(null, widgetSize);
+                return widget.embeddedImageEmitsError ? _errorWidget(context, constraints, snapshot.error) : _qrWidget(null, widgetSize);
               }
               if (snapshot.hasData) {
                 debugPrint('loaded image');
@@ -241,12 +236,8 @@ class _QrImageViewState extends State<QrImageView> {
     BoxConstraints constraints,
     Object? error,
   ) {
-    final errorWidget = widget.errorStateBuilder == null
-        ? Container()
-        : widget.errorStateBuilder!(context, error);
-    final errorSideLength = widget.constrainErrorBounds
-        ? widget.size ?? constraints.biggest.shortestSide
-        : constraints.biggest.longestSide;
+    final errorWidget = widget.errorStateBuilder == null ? Container() : widget.errorStateBuilder!(context, error);
+    final errorSideLength = widget.constrainErrorBounds ? widget.size ?? constraints.biggest.shortestSide : constraints.biggest.longestSide;
     return _QrContentView(
       edgeLength: errorSideLength,
       backgroundColor: widget.backgroundColor,
@@ -262,8 +253,6 @@ class _QrImageViewState extends State<QrImageView> {
     BuildContext buildContext,
     QrEmbeddedImageStyle? style,
   ) {
-    if (style != null) {}
-
     final mq = MediaQuery.of(buildContext);
     final completer = Completer<ui.Image>();
     final stream = widget.embeddedImage!.resolve(
