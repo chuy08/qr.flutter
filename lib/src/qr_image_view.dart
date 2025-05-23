@@ -273,6 +273,7 @@ class _QrImageViewState extends State<QrImageView> {
     streamListener = ImageStreamListener(
       (info, err) async {
         stream.removeListener(streamListener);
+<<<<<<< HEAD
         var img = info.image;
         // Resize if needed
         if (style != null &&
@@ -293,6 +294,11 @@ class _QrImageViewState extends State<QrImageView> {
           img = await recorder.endRecording().toImage(newWidth, newHeight);
         }
         completer.complete(img);
+=======
+        // No resizing needed here - the QrPainter will handle maxHeight constraint
+        // This prevents double-resizing the image
+        completer.complete(info.image);
+>>>>>>> e022578 (Enhance QR code rendering by adding maxWidth support for embedded images and update version to 4.1.3)
       },
       onError: (err, _) {
         stream.removeListener(streamListener);
