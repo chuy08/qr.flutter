@@ -103,12 +103,8 @@ class _MainScreenState extends State<MainScreen> {
                       ),
                       embeddedImage: AssetImage('assets/images/logo.jpg'),
                       embeddedImageStyle: QrEmbeddedImageStyle(
-                        size: Size.square(40),
-                        color: Colors.white,
                         safeArea: true,
                         safeAreaMultiplier: 1.1,
-                        embeddedImageShape: EmbeddedImageShape.square,
-                        shapeColor: Color(0xff128760),
                         borderRadius: 10,
                       ),
                     ),
