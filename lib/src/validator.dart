@@ -4,7 +4,8 @@
  * See LICENSE for distribution and usage details.
  */
 
-import 'package:qr/qr.dart';
+import 'package:qr/qr.dart' hide QrValidationResult;
+import 'package:qr/qr.dart' as qr_validation show QrValidationResult;
 
 import 'qr_versions.dart';
 
@@ -16,30 +17,46 @@ class QrValidator {
   static QrValidationResult validate({
     required String data,
     int version = QrVersions.auto,
-    int errorCorrectionLevel = QrErrorCorrectLevel.L,
+    QrErrorCorrectLevel errorCorrectionLevel = QrErrorCorrectLevel.low,
   }) {
-    late final QrCode qrCode;
-    try {
-      if (version != QrVersions.auto) {
-        qrCode = QrCode(version, errorCorrectionLevel);
-        qrCode.addData(data);
+    if (version != QrVersions.auto) {
+      final result = qr_validation.QrValidationResult.fromPayload(
+        payload: QrPayload.fromString(data),
+        typeNumber: version,
+        errorCorrectLevel: errorCorrectionLevel,
+      );
+      if (result.isValid) {
+        return QrValidationResult(
+          status: QrValidationStatus.valid,
+          qrCode: result.qrCode,
+        );
       } else {
-        qrCode = QrCode.fromData(
-          data: data,
-          errorCorrectLevel: errorCorrectionLevel,
+        return QrValidationResult(
+          status: QrValidationStatus.contentTooLong,
+          error: Exception('Input too long for QR code version $version'),
         );
       }
-      return QrValidationResult(
-        status: QrValidationStatus.valid,
-        qrCode: qrCode,
-      );
-    } on InputTooLongException catch (title) {
-      return QrValidationResult(
-        status: QrValidationStatus.contentTooLong,
-        error: title,
-      );
-    } on Exception catch (ex) {
-      return QrValidationResult(status: QrValidationStatus.error, error: ex);
+    } else {
+      try {
+        final qrCode = QrCode(
+          payload: QrPayload.fromString(data),
+          errorCorrectLevel: errorCorrectionLevel,
+        );
+        return QrValidationResult(
+          status: QrValidationStatus.valid,
+          qrCode: qrCode,
+        );
+      } on InputTooLongException catch (title) {
+        return QrValidationResult(
+          status: QrValidationStatus.contentTooLong,
+          error: title,
+        );
+      } on Exception catch (ex) {
+        return QrValidationResult(
+          status: QrValidationStatus.error,
+          error: ex,
+        );
+      }
     }
   }
 }

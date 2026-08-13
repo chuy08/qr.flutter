@@ -8,7 +8,7 @@ import 'dart:async';
 import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
-import 'package:qr/qr.dart';
+import 'package:qr/qr.dart' hide QrValidationResult;
 
 import 'qr_painter.dart';
 import 'qr_versions.dart';
@@ -28,7 +28,7 @@ class QrImageView extends StatefulWidget {
     @Deprecated('use colors in eyeStyle and dataModuleStyle instead')
     this.foregroundColor = Colors.black,
     this.version = QrVersions.auto,
-    this.errorCorrectionLevel = QrErrorCorrectLevel.L,
+    this.errorCorrectionLevel = QrErrorCorrectLevel.low,
     this.errorStateBuilder,
     this.constrainErrorBounds = true,
     this.gapless = true,
@@ -43,9 +43,9 @@ class QrImageView extends StatefulWidget {
     ),
     this.embeddedImageEmitsError = false,
     this.gradient,
-  }) : assert(
-        QrVersions.isSupportedVersion(version),
-        'QR code version $version is not supported',
+  })  : assert(
+          QrVersions.isSupportedVersion(version),
+          'QR code version $version is not supported',
         ),
         _data = data,
         _qrCode = null;
@@ -61,7 +61,7 @@ class QrImageView extends StatefulWidget {
     @Deprecated('use colors in eyeStyle and dataModuleStyle instead')
     this.foregroundColor = Colors.black,
     this.version = QrVersions.auto,
-    this.errorCorrectionLevel = QrErrorCorrectLevel.L,
+    this.errorCorrectionLevel = QrErrorCorrectLevel.low,
     this.errorStateBuilder,
     this.constrainErrorBounds = true,
     this.gapless = true,
@@ -78,9 +78,9 @@ class QrImageView extends StatefulWidget {
     ),
     this.embeddedImageEmitsError = false,
     this.gradient,
-  }) : assert(
-        QrVersions.isSupportedVersion(version),
-        'QR code version $version is not supported',
+  })  : assert(
+          QrVersions.isSupportedVersion(version),
+          'QR code version $version is not supported',
         ),
         _data = null,
         _qrCode = qr;
@@ -105,7 +105,7 @@ class QrImageView extends StatefulWidget {
   final int version;
 
   /// The QR code error correction level to use.
-  final int errorCorrectionLevel;
+  final QrErrorCorrectLevel errorCorrectionLevel;
 
   /// The external padding between the edge of the widget and the content.
   final EdgeInsets padding;
@@ -187,8 +187,7 @@ class _QrImageViewState extends State<QrImageView> {
           return _errorWidget(context, constraints, _validationResult.error);
         }
         // no error, build the regular widget
-        final widgetSize =
-            widget.size ?? constraints.biggest.shortestSide;
+        final widgetSize = widget.size ?? constraints.biggest.shortestSide;
         if (widget.embeddedImage != null) {
           // if requesting to embed an image then we need to load via a
           // FutureBuilder because the image provider will be async.
@@ -219,16 +218,15 @@ class _QrImageViewState extends State<QrImageView> {
 
   Widget _qrWidget(ui.Image? image, double edgeLength) {
     final painter = QrPainter.withQr(
-      qr: _qr!,
-      // ignore: deprecated_member_use_from_same_package
-      color: widget.foregroundColor,
-      gapless: widget.gapless,
-      embeddedImageStyle: widget.embeddedImageStyle,
-      embeddedImage: image,
-      eyeStyle: widget.eyeStyle,
-      dataModuleStyle: widget.dataModuleStyle,
-      gradient: widget.gradient
-    );
+        qr: _qr!,
+        // ignore: deprecated_member_use_from_same_package
+        color: widget.foregroundColor,
+        gapless: widget.gapless,
+        embeddedImageStyle: widget.embeddedImageStyle,
+        embeddedImage: image,
+        eyeStyle: widget.eyeStyle,
+        dataModuleStyle: widget.dataModuleStyle,
+        gradient: widget.gradient);
     return _QrContentView(
       edgeLength: edgeLength,
       backgroundColor: widget.backgroundColor,
