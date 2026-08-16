@@ -7,7 +7,6 @@
 import 'package:flutter/widgets.dart';
 import 'dart:ui';
 
-
 /// Represents a specific element / part of a QR code. This is used to isolate
 /// the different parts so that we can style and modify specific parts
 /// independently.
@@ -78,6 +77,7 @@ class QrEyeStyle {
     this.eyeShape = QrEyeShape.square,
     this.color,
     this.borderRadius = 0,
+    required bool dottedInnerPattern,
   });
 
   /// Eye shape.
@@ -134,10 +134,11 @@ class QrDataModuleStyle {
   /// [_outsideBorderRadius] <= [borderRadius]
   /// Get border radius for outside corners
   double get outsideBorderRadius {
-    if(roundedOutsideCorners) {
-      return _outsideBorderRadius != null
-          && _outsideBorderRadius! < borderRadius
-          ? _outsideBorderRadius! : borderRadius;
+    if (roundedOutsideCorners) {
+      return _outsideBorderRadius != null &&
+              _outsideBorderRadius! < borderRadius
+          ? _outsideBorderRadius!
+          : borderRadius;
     }
     return 0;
   }
