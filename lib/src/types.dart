@@ -77,7 +77,6 @@ class QrEyeStyle {
     this.eyeShape = QrEyeShape.square,
     this.color,
     this.borderRadius = 0,
-    required bool dottedInnerPattern,
   });
 
   /// Eye shape.

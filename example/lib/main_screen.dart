@@ -91,10 +91,10 @@ class _MainScreenState extends State<MainScreen> {
                         ],
                       ),*/
                       eyeStyle: const QrEyeStyle(
-                          eyeShape: QrEyeShape.square,
-                          color: Color(0xff128760),
-                          borderRadius: 10,
-                          dottedInnerPattern: true),
+                        eyeShape: QrEyeShape.square,
+                        color: Color(0xff128760),
+                        borderRadius: 10,
+                      ),
                       dataModuleStyle: const QrDataModuleStyle(
                         dataModuleShape: QrDataModuleShape.circle,
                         color: Color(0xff1a5441),

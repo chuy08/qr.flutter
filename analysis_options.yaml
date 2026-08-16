@@ -15,6 +15,10 @@ analyzer:
     - 'build/**'
     - 'ios/**'
     - 'res/**'
+    - web/**
+    - windows/**
+    - macos/**
+    - linux/**
 
 linter:
   rules:
